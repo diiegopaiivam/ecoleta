@@ -1,5 +1,5 @@
 import path from 'path';
-
+//configurações do banco
 module.exports = {
     client: 'sqlite3',
     connection: {
