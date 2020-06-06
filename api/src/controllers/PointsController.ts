@@ -10,9 +10,7 @@ class PointsController {
         const parsedItems = String(items)
         .split(',')
         .map(item => Number(item.trim()));
-
-        
-
+       
         const points = await connection('points')
         .join('points_items', 'points.id', '=', 'points_items.point_id')
         .whereIn('points_items.item_id', parsedItems)
@@ -21,7 +19,14 @@ class PointsController {
         .distinct()
         .select('points.*');
 
-        return response.json(points);
+        const serializedPoints = points.map(point => {
+            return {
+                ...point,
+                image_url: `http://localhost:3333/uploads/${point.image}`
+            };
+        });
+
+        return response.json(serializedPoints);
     }
 
     async show (request: Request, response: Response) {
@@ -33,12 +38,20 @@ class PointsController {
             return response.status(404).json({ error: "Point Not Found." })
         }
 
+
+        const serializedPoint = { 
+            ...point,
+            image_url: `http://localhost:3333/uploads/${point.image}`
+        };
+
         const items = await connection('items')
             .join('points_items', 'items.id', '=', 'points_items.item_id')
             .where('points_items.point_id', id)
             .select('items.title');
 
-        return response.json({ point, items });
+
+
+        return response.json({ serializedPoint, items });
     }
 
     async create(request: Request, response: Response) {
@@ -52,11 +65,13 @@ class PointsController {
             uf,
             items
         } = request.body;
+
+        
     
         const trx = await connection.transaction();
 
         const point = {
-            image: 'https://www.fortaleza.ce.gov.br/images/AscomSeuma/Escola-Pev.JPG',
+            image: request.file.filename,
             name,
             email,
             whatsapp,
@@ -70,7 +85,10 @@ class PointsController {
     
         const point_id = insertedIds[0];
     
-        const pointItems = items.map((item_id: Number) => {
+        const pointItems = items
+        .split(',')
+        .map((item: String) => Number(item.trim()))
+        .map((item_id: Number) => {
             return {
                 item_id,
                 point_id
