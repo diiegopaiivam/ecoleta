@@ -37,7 +37,7 @@ O projeto tem como finalidade **estabelecer uma conexão** entre **empresas e/ou
 ## **:computer: Tecnologias**
 
 
-#### **Website** ([React][react] + [TypeScript][typescript])
+#### **FRONT-END DA APLICAÇÃO** ([React][react] + [TypeScript][typescript])
 
   - **[React Router Dom][react_router_dom]**
   - **[React Icons][react_icons]**
@@ -46,9 +46,9 @@ O projeto tem como finalidade **estabelecer uma conexão** entre **empresas e/ou
   - **[React Leaflet][react_leaflet]**
 
 
-  \* Veja o arquivo <kbd>[package.json](./master/front/package.json)</kbd>
+  \* Veja o arquivo <kbd>[package.json](./front/package.json)</kbd>
 
-#### **Server** ([NodeJS][node] + [TypeScript][typescript])
+#### **BACK-END DA APLICAÇÃO** ([NodeJS][node] + [TypeScript][typescript])
 
   - **[Express][express]**
   - **[CORS][cors]**
@@ -56,7 +56,7 @@ O projeto tem como finalidade **estabelecer uma conexão** entre **empresas e/ou
   - **[SQLite][sqlite3]**
   - **[ts-node][tsnode]**
 
-  \* Veja o arquivo <kbd>[package.json](./master/api/package.json)</kbd>
+  \* Veja o arquivo <kbd>[package.json](./api/package.json)</kbd>
 
 <!-- #### **Mobile** ([React Native][react_native] + [TypeScript][typescript]) -->
 
